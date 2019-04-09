@@ -25,15 +25,10 @@ cd
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ln -s /usr/share/zsh-theme-powerlevel9k /$USER/home/.oh-my-zsh/custom/themes/powerlevel9k
 sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel9k/powerlevel9k"/g' /home/$USER/.zshrc
-sed -i '1iexport TERM="xterm-256color"' /home/$USER/.zshrc
-sed -i '1iexport LANG="en_US.UTF-8"' /home/$USER/.zshrc
+#sed -i '1iexport TERM="xterm-256color"' /home/$USER/.zshrc
+#sed -i '1iexport LANG="en_US.UTF-8"' /home/$USER/.zshrc
 
-cat << EOF > /home/$USER/.screenrc
-autodetach on
-startup_message off
-hardstatus alwayslastline
-shelltitle 'bash'
+wget https://raw.githubusercontent.com/nipsufn/arch-install/master/.screenrc
+wget https://raw.githubusercontent.com/nipsufn/arch-install/master/.startup.sh
 
-hardstatus string '%{gk}[%{wk}%?%-Lw%?%{=b kR}(%{W}%n*%f %t%?(%u)%?%{=b kR})%{= w}%?%+Lw%?%? %{g}]%=[%{d}%l%{g}][ %{= w}%Y/%m/%d %0C:%s%a%{g} ]%{W}'
-
-EOF
+printf "\n~/.startup.sh\n" >> .zshrc
