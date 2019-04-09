@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 USER="nemo"
 timedatectl set-ntp true
 pacstrap /mnt base base base-devel grub xorg xorg-apps xorg-xinit cinnamon networkmanager steam code firefox telegram-desktop syncthing-gtk keepassxc atril eom gimp blender vlc clementine mate-terminal tilda nemo-fileroller nemo-preview nemo-share gvfs-mtp gvfs-gphoto2 gvfs-afc gvfs-smb ntfs-3g intel-ucode cpupower alsa-utils alsa-oss zsh zsh-completions zsh-theme-powerlevel9k powerline-fonts screen tree git openssh ttf-dejavu noto-fonts ttf-liberation ttf-freefont
