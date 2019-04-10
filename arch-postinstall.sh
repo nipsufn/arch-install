@@ -29,8 +29,7 @@ sudo -u $USER sed -i '1iexport TERM="xterm-256color"' /home/$USER/.zshrc
 sudo -u $USER sed -i '1iexport LANG="en_US.UTF-8"' /home/$USER/.zshrc
 sudo -u $USER sed -i '1iif [ "$TERM" = "linux" ]; then source .zshrc_nox; exit; fi' /home/$USER/.zshrc
 
-sudo -u $USER cp /etc/skel/.zshrc ./zshrc_nox
-
+sudo -u $USER curl -fOsS https://raw.githubusercontent.com/nipsufn/arch-install/master/.zshrc_nox
 sudo -u $USER curl -fOsS https://raw.githubusercontent.com/nipsufn/arch-install/master/.screenrc
 sudo -u $USER curl -fOsS https://raw.githubusercontent.com/nipsufn/arch-install/master/.xbindkeysrc
 sudo -u $USER curl -fOsS https://raw.githubusercontent.com/nipsufn/arch-install/master/.startup.sh
