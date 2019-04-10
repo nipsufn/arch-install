@@ -9,7 +9,7 @@ pacstrap /mnt base base base-devel grub xorg xorg-apps xorg-xinit xdotool xbindk
 #  nvidia nvidia-utils lib32-nvidia-utils
 #  xf86-video-ati mesa lib32-mesa xf86-input-libinput
 genfstab -U /mnt >> /mnt/etc/fstab
-cd /mnt/root
+cd /mnt
 wget https://raw.githubusercontent.com/nipsufn/arch-install/master/arch-postinstall.sh
 cd
-arch-chroot /mnt /root/arch-postinstall.sh
+arch-chroot /mnt /arch-postinstall.sh
