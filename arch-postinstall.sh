@@ -17,7 +17,7 @@ sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
 
 cd /home/$USER
 
-sudo -u $USER wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+sudo -u $USER curl -fOsS https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
 chmod 0755 install.sh
 sudo -u $USER ./install.sh
 rm install.sh
@@ -30,7 +30,7 @@ sudo -u $USER sed -i '1iif [ "$TERM" = "linux" ]; then source .zshrc_nox; exit; 
 
 sudo -u $USER cp /etc/skel/.zshrc ./zshrc_nox
 
-sudo -u $USER wget https://raw.githubusercontent.com/nipsufn/arch-install/master/.screenrc
-sudo -u $USER wget https://raw.githubusercontent.com/nipsufn/arch-install/master/.startup.sh
+sudo -u $USER curl -fOsS https://raw.githubusercontent.com/nipsufn/arch-install/master/.screenrc
+sudo -u $USER curl -fOsS https://raw.githubusercontent.com/nipsufn/arch-install/master/.startup.sh
 
 sudo -u $USER printf "\n~/.startup.sh\n" >> .zshrc_nox
