@@ -23,8 +23,8 @@ chmod 0755 install.sh
 sudo -u $USER ./install.sh
 rm install.sh
 
-sudo -u $USER ln -s /usr/share/zsh-theme-powerlevel9k /$USER/home/.oh-my-zsh/custom/themes/powerlevel9k
-sudo -u $USER sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel9k/powerlevel9k"/g' /home/$USER/.zshrc
+sudo -u $USER ln -s /usr/share/zsh-theme-powerlevel9k /home/$USER/.oh-my-zsh/custom/themes/powerlevel9k
+sudo -u $USER sed -i 's!ZSH_THEME="robbyrussell"!ZSH_THEME="powerlevel9k/powerlevel9k"!g' /home/$USER/.zshrc
 sudo -u $USER sed -i '1iexport TERM="xterm-256color"' /home/$USER/.zshrc
 sudo -u $USER sed -i '1iexport LANG="en_US.UTF-8"' /home/$USER/.zshrc
 sudo -u $USER sed -i '1iif [ "$TERM" = "linux" ]; then source .zshrc_nox; exit; fi' /home/$USER/.zshrc
