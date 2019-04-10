@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=setxkbmap
+Exec=setxkbmap pl
