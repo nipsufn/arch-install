@@ -2,4 +2,4 @@
 Type=Application
 Name=xbindkeys
 Exec=xbindkeys
-
+Comment=Enable keybindings

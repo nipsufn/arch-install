@@ -18,10 +18,10 @@ sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
 cd /home/$USER
 
 sudo -u $USER curl -fOsS https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
-sed -i 's/env zsh -l//g' install.sh
-chmod 0755 install.sh
+sudo -u $USER sed -i 's/env zsh -l//g' install.sh
+sudo -u $USER chmod 0755 install.sh
 sudo -u $USER ./install.sh
-rm install.sh
+sudo -u $USER rm install.sh
 
 sudo -u $USER ln -s /usr/share/zsh-theme-powerlevel9k /home/$USER/.oh-my-zsh/custom/themes/powerlevel9k
 sudo -u $USER sed -i 's!ZSH_THEME="robbyrussell"!ZSH_THEME="powerlevel9k/powerlevel9k"!g' /home/$USER/.zshrc
@@ -29,12 +29,7 @@ sudo -u $USER sed -i '1iexport TERM="xterm-256color"' /home/$USER/.zshrc
 sudo -u $USER sed -i '1iexport LANG="en_US.UTF-8"' /home/$USER/.zshrc
 sudo -u $USER sed -i '1iif [ "$TERM" = "linux" ]; then source .zshrc_nox; exit; fi' /home/$USER/.zshrc
 
-sudo -u $USER curl -fOsS https://raw.githubusercontent.com/nipsufn/arch-install/master/.zshrc_nox
-sudo -u $USER curl -fOsS https://raw.githubusercontent.com/nipsufn/arch-install/master/.xinitrc
-sudo -u $USER curl -fOsS https://raw.githubusercontent.com/nipsufn/arch-install/master/.screenrc
-sudo -u $USER curl -fOsS https://raw.githubusercontent.com/nipsufn/arch-install/master/.xbindkeysrc
-sudo -u $USER curl -fOsS https://raw.githubusercontent.com/nipsufn/arch-install/master/.startup.sh
-
-
-chmod 0755 .startup.sh
-sudo -u $USER printf "\n~/.startup.sh\n" >> .zshrc_nox
+sudo -u $USER curl -fOsS https://codeload.github.com/nipsufn/arch-install/zip/master
+sudo -u $USER bash -c 'shopt -s dotglob && unzip master arch-install-master/skel/* && mv arch-install-master/skel/* ./ && rmdir -p arch-install-master/skel && shopt -u dotglob'
+sudo -u $USER rm master
+sudo -u $USER chmod 0755 .startup.sh
