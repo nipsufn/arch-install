@@ -16,7 +16,12 @@ usermod -aG wheel,users,games,uucp,audio,disk,floppy,input,kvm,optical,scanner,s
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
 
 cd /home/$USER
-sudo -u $USER sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+sudo -u $USER wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+chmod 0755 install.sh
+sudo -u $USER ./install.sh
+rm install.sh
+
 sudo -u $USER ln -s /usr/share/zsh-theme-powerlevel9k /$USER/home/.oh-my-zsh/custom/themes/powerlevel9k
 sudo -u $USER sed -i 's/ZSH_THEME="robbyrussell"/ZSH_THEME="powerlevel9k/powerlevel9k"/g' /home/$USER/.zshrc
 sudo -u $USER sed -i '1iexport TERM="xterm-256color"' /home/$USER/.zshrc
