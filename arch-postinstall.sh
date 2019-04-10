@@ -11,7 +11,7 @@ sed -i 's/#Color/Color/g' /etc/pacman.conf
 sed -i 's/#TotalDownload/TotalDownload/g' /etc/pacman.conf
 sed -i 's/#\[multilib\]/[multilib]/g' /etc/pacman.conf
 sed -i '/^\[multilib\]$/,+1 s.^#..' /etc/pacman.conf
-useradd -m -k -s /bin/zsh $USER
+useradd -m -s /bin/zsh $USER
 usermod -aG wheel,users,games,uucp,audio,disk,floppy,input,kvm,optical,scanner,storage,video,network,power $USER
 sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
 
