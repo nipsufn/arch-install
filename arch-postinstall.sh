@@ -18,6 +18,7 @@ sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
 cd /home/$USER
 
 sudo -u $USER curl -fOsS https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+sed -i 's/env zsh -l//g' /install.sh
 chmod 0755 install.sh
 sudo -u $USER ./install.sh
 rm install.sh
