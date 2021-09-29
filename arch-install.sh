@@ -5,7 +5,71 @@ sed -i 's/#Color/Color/g' /etc/pacman.conf
 sed -i 's/#TotalDownload/TotalDownload/g' /etc/pacman.conf
 sed -i 's/#\[multilib\]/[multilib]/g' /etc/pacman.conf
 sed -i '/^\[multilib\]$/,+1 s.^#..' /etc/pacman.conf
-pacstrap /mnt base linux linux-firmware e2fsprogs exfat-utils dosfstools ntfs-3g vim man-db man-pages textinfo base-devel grub intel-ucode cpupower alsa-utils alsa-oss screen tree git openssh xorg xorg-apps xorg-xinit xdotool xbindkeys cinnamon networkmanager steam code firefox telegram-desktop keepassxc atril eom gimp blender vlc clementine mate-terminal tilda nemo-fileroller nemo-preview nemo-share gvfs-mtp gvfs-gphoto2 gvfs-afc gvfs-smb ttf-dejavu noto-fonts ttf-liberation ttf-freefont
+pacstrap /mnt \
+    alacritty \
+    alsa-oss \
+    alsa-utils \
+    awesome-terminal-fonts \
+    base \
+    base-devel \
+    blender \
+    blueman \
+    bluez \
+    bluez-utils \
+    brlaser \
+    celluloid \
+    cmatrix \
+    cpupower \
+    cryptsetup \
+    cups \
+    dosfstools \
+    e2fsprogs \
+    efibootmgr \
+    exfat-utils \
+    firefox \
+    gimp \
+    git \
+    gvfs-afc \
+    gvfs-gphoto2 \
+    gvfs-mtp \
+    gvfs-smb \
+    intel-ucode \
+    jq \
+    keepassxc \
+    linux \
+    linux-firmware \
+    lvm2 \
+    man-db \
+    man-pages \
+    networkmanager \
+    noto-fonts \
+    noto-fonts-emoji \
+    ntfs-3g \
+    openssh \
+    polkit \
+    pulseaudio \
+    qbittorrent \
+    ristretto \
+    steam \
+    sudo \
+    sway \
+    telegram-desktop \
+    thunar \
+    thunar-volman \
+    textinfo \
+    tmux \
+    tree \
+    ttf-dejavu \
+    ttf-freefont \
+    ttf-liberation \
+    vim \
+    vlc \
+    waybar \
+    wayland \
+    wofi \
+    xwayland \
+    zsh \
+    
 #  nvidia nvidia-utils lib32-nvidia-utils
 #  xf86-video-ati mesa lib32-mesa xf86-input-libinput
 genfstab -U /mnt >> /mnt/etc/fstab

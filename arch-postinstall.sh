@@ -20,4 +20,3 @@ cd /home/$USER
 sudo -u $USER curl -fOsS https://codeload.github.com/nipsufn/arch-install/zip/master
 sudo -u $USER bash -c 'shopt -s dotglob && unzip master arch-install-master/skel/* && mv arch-install-master/skel/* ./ && rmdir -p arch-install-master/skel && shopt -u dotglob'
 sudo -u $USER rm master
-sudo -u $USER chmod 0755 .startup.sh

@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=setxkbmap
-Exec=setxkbmap pl
-Comment=Set Polish keymap
