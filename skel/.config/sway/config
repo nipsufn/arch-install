@@ -6,9 +6,12 @@
 
 ### Autostart
 exec thunar --daemon
-exec telegram-desktop -startintray
+exec sh -c 'env XDG_CURRENT_DESKTOP=Unity telegram-desktop -startintray'
 exec nm-applet --indicator
+exec mako --config ~/.config/mako/config 2>&1 >/tmp/mako.log
 exec rclone mount google-drive:/ /home/nemo/'Google Drive' --vfs-cache-mode writes
+exec swayidle -w \
+	timeout 300 'swaylock -f -i /home/nemo/Pictures/ISS_Moon_Transit.jpg'
 
 ### Font
 #font pango:Monospace, 9
@@ -28,18 +31,39 @@ set $term alacritty
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu wofi -G -i --show=drun,run | xargs swaymsg exec --
+set $menu wofi -G -i --show="drun,run" | xargs swaymsg exec --
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+#output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+output * bg /home/nemo/Pictures/ISS_Moon_Transit.jpg fill
 #
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
+
+# home
+# left display
+output 'Philips Consumer Electronics Company PHL 272B8Q UK02022030502' resolution 2560x1440 position 0,0
+# right display
+output 'Philips Consumer Electronics Company PHL 272B8Q UK02022030417' resolution 2560x1440 position 2560,0
+
+# ORY Gliwitz
+# left display
+output 'Goldstar Company Ltd LG HDR 4K 111NTDV98978' resolution 3840x2160 position 0,0
+# right display
+output 'Unknown 0x623D 0x00000000' resolution 1920x1080 position 3840,1080
+
+# ORY Munchen
+# left display
+#output 'Goldstar Company Ltd LG HDR 4K 0x000082C7' resolution 3840x2160 position 0,0
+# right display
+#output 'Unknown 0x623D 0x00000000' resolution 1920x1080 position 960,2160
+
+# Laptop screen auto on/off
 set $laptop eDP-1
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
@@ -117,15 +141,18 @@ input * {
     bindsym $mod+Shift+c reload
     
     # change volume
-    bindsym --whole-window button8 exec pactl set-sink-volume $(pactl list short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,') -10%
-    bindsym --whole-window button9 exec pactl set-sink-volume $(pactl list short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,') +10%
-    # capture all screens to clipboard    
-    bindsym $mod+p exec grim - | wl-copy    
-    # capture the specified screen area to clipboard    
+    bindsym --whole-window button8 exec pactl set-sink-volume $(pactl list short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n1) -10%
+    bindsym --whole-window button9 exec pactl set-sink-volume $(pactl list short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n1) +10%
+    # capture all screens to clipboard
+    bindsym $mod+p exec grim - | wl-copy
+    # capture the specified screen area to clipboard
     bindsym $mod+Shift+p exec grim -g "$(slurp)" - | wl-copy
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+    # Lock screen
+    bindsym $mod+Ctrl+l exec swaylock -f -i /home/nemo/Pictures/ISS_Moon_Transit.jpg
 #
 # Moving around:
 #
@@ -187,9 +214,9 @@ input * {
     bindsym $mod+v splitv
 
     # Switch the current container between different layout styles
-    bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
-    bindsym $mod+e layout toggle split
+    #bindsym $mod+s layout stacking
+    #bindsym $mod+w layout tabbed
+    #bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
@@ -261,4 +288,3 @@ bar {
     swaybar_command waybar
 }
 
-include /etc/sway/config.d/*
