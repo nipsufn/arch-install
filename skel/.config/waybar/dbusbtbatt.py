@@ -13,24 +13,26 @@ def main():
     manager = dbus.Interface(proxy_object, "org.freedesktop.DBus.ObjectManager")
     objects = manager.GetManagedObjects()
     battery = [
-        "<span font_desc='Font Awesome 5 Free Solid'>&#xf244;</span>  ",
-        "<span font_desc='Font Awesome 5 Free Solid'>&#xf243;</span>  ",
-        "<span font_desc='Font Awesome 5 Free Solid'>&#xf242;</span>  ",
-        "<span font_desc='Font Awesome 5 Free Solid'>&#xf241;</span>  ",
-        "<span font_desc='Font Awesome 5 Free Solid'>&#xf240;</span>  "
+        "",
+        "",
+        "",
+        "",
+        ""
     ]
     json_out = {}
-    json_out['text'] = "  "
+    json_out['text'] = ""
     json_out['tooltip'] = ""
     for object in objects.items():
         if 'org.bluez.Device1' in object[1] and 'org.bluez.Battery1' in object[1]:
             dbus_icon = object[1]['org.bluez.Device1']['Icon']
             if dbus_icon == "input-mouse":
-                json_out['text'] += "<span font_desc='Font Awesome 6 Free Solid'>&#xf8cc;</span> "
+                json_out['text'] += " "
+            if dbus_icon == "input-keyboard":
+                json_out['text'] += " "
             elif dbus_icon == "audio-headset":
-                json_out['text'] += "<span font_desc='Font Awesome 6 Free Solid'>&#xf590;</span> "
+                json_out['text'] += " "
             else:
-                json_out['text'] += "<span font_desc='Font Awesome 6 Free Solid'>&#xf128;</span> "
+                json_out['text'] += " "
             
             dbus_battery = object[1]['org.bluez.Battery1']['Percentage']
             if dbus_battery <= 10:
@@ -54,11 +56,13 @@ def main():
     if dev:
         dev.ping()
         if dev.kind == 'mouse':
-            json_out['text'] += "<span font_desc='Font Awesome 6 Free Solid'>&#xf8cc;</span> "
-            logibattery = _hidpp20.get_battery(dev)
+            json_out['text'] += " "
+            logibattery = _hidpp20.get_battery(dev, None)
             if logibattery is None:
                 logibattery = _hidpp10.get_battery(dev)
-            level, _, _ = logibattery
+                level, _, _ = logibattery
+            else:
+                level = logibattery[1]
             if level <= 10:
                 json_out['text'] += battery[0]
             elif level <= 30:
