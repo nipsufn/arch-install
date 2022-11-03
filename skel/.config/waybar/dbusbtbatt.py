@@ -13,11 +13,11 @@ def main():
     manager = dbus.Interface(proxy_object, "org.freedesktop.DBus.ObjectManager")
     objects = manager.GetManagedObjects()
     battery = [
-        "",
-        "",
-        "",
-        "",
-        ""
+        "  ",
+        "  ",
+        "  ",
+        "  ",
+        "  "
     ]
     json_out = {}
     json_out['text'] = ""
@@ -74,7 +74,7 @@ def main():
             else:
                 json_out['text'] += battery[4]
             json_out['tooltip'] += dev.codename + ": " + str(level) + "%"
-
+    json_out['text'] = json_out['text'].strip()
     print(json.dumps(json_out))
 
 if __name__ == "__main__":
