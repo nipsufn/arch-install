@@ -46,12 +46,10 @@ def main():
             else:
                 json_out['text'] += battery[4]
             json_out['tooltip'] += f"{object[1]['org.bluez.Device1']['Name']}: {json.dumps(object[1]['org.bluez.Battery1']['Percentage'])}%\n"
-    #trim last newline from tooltip
-    #json_out['tooltip'] = json_out['tooltip'][:-1]
 
     #logitech mouse
     recv = list(cli._receivers())
-    recv += list(cli._wired_devices())
+    recv += list(cli._receivers_and_devices())
     dev = next(cli._find_device(recv, "1"), None)
     if dev:
         dev.ping()

@@ -38,23 +38,24 @@ font:
     y: -2
 
 shell:
+  # program: /bin/bash
   program: /usr/bin/zsh
 
 font:
   normal:
-    family: RobotoMono Nerd Font
+    family: Source Code Pro
     style: Regular
 
   bold:
-    family: RobotoMono Nerd Font
+    family: Source Code Pro
     style: Bold
 
   italic:
-    family: RobotoMono Nerd Font
+    family: Source Code Pro
     style: Italic
 
   bold_italic:
-    family: RobotoMono Nerd Font
+    family: Source Code Pro
     style: Bold Italic
 
   size: 11

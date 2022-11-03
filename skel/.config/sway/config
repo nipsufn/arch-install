@@ -6,7 +6,7 @@
 
 ### Autostart
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec asusctltray
+#exec asusctltray
 exec mako --config ~/.config/mako/config 2>&1 > ~/.local/var/log/mako.log
 exec swayidle -w \
 	timeout 300 'swaylock -f -i /home/nemo/Pictures/ISS_Moon_Transit.jpg'
@@ -54,8 +54,9 @@ output 'Philips Consumer Electronics Company PHL 272B8Q UK02022030502' resolutio
 output 'Philips Consumer Electronics Company PHL 272B8Q UK02022030417' resolution 2560x1440 position 2560,0
 
 # Laptop screen
-set $laptop eDP-2
-output $laptop resolution 2560x1600@120Hz scale 1.3
+set $laptop eDP-1
+#set $laptop eDP-2
+#output $laptop resolution 2560x1600@120Hz scale 1.3
 # Laptop screen auto on/off
 bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
@@ -145,8 +146,8 @@ input * {
     bindsym XF86AudioMute exec pactl set-sink-mute $(pactl list short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n1) toggle
     bindsym XF86AudioMicMute exec pactl set-source-mute $(pactl list short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | tail -n1) toggle
     # keyboard brightness
-    bindsym XF86KbdBrightnessUp exec asusctl -n
-    bindsym XF86KbdBrightnessDown exec asusctl -p
+    # bindsym XF86KbdBrightnessUp exec asusctl -n
+    # bindsym XF86KbdBrightnessDown exec asusctl -p
     # screen brightness
     bindsym XF86MonBrightnessUp exec light -A 10
     bindsym XF86MonBrightnessDown exec light -U 10

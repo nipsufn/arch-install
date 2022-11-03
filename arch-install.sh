@@ -2,22 +2,17 @@
 
 timedatectl set-ntp true
 sed -i 's/#Color/Color/g' /etc/pacman.conf
-sed -i 's/#TotalDownload/TotalDownload/g' /etc/pacman.conf
+sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
 sed -i 's/#\[multilib\]/[multilib]/g' /etc/pacman.conf
-sed -i '/^\[multilib\]$/,+1 s.^#..' /etc/pacman.conf
+sed -i '/^\[multilib\]$/,+1 s.^#..' /etc/pacman.conf # uncomment next line
 pacstrap /mnt \
     alacritty \
     alsa-oss \
     alsa-utils \
-    awesome-terminal-fonts \
     base \
     base-devel \
-    blender \
-    blueman \
-    bluez \
+    blueberry \
     bluez-utils \
-    brlaser \
-    celluloid \
     cmatrix \
     cpupower \
     cryptsetup \
@@ -25,50 +20,78 @@ pacstrap /mnt \
     dosfstools \
     e2fsprogs \
     efibootmgr \
+    evince \ # document / pdf viewer
     exfat-utils \
     firefox \
     gimp \
     git \
+    gnome-keyring \
+    grim \ # print-screen: dump region to stdout
     gvfs-afc \
     gvfs-gphoto2 \
     gvfs-mtp \
     gvfs-smb \
     intel-ucode \
-    jq \
     keepassxc \
+    libreoffice-fresh \
+    libreoffice-fresh-pl \
+    light \ # control backlight from terminals /bindkeys
     linux \
     linux-firmware \
     lvm2 \
+    mako \ # notifications
     man-db \
     man-pages \
+    network-manager-applet \
     networkmanager \
     noto-fonts \
+    noto-fonts-cjk \
     noto-fonts-emoji \
+    noto-fonts-extra \
     ntfs-3g \
     openssh \
-    polkit \
-    pulseaudio \
+    p7zip \
+    pavucontrol \ # ui sliders for audio settings
+    pipewire \
+    pipewire-alsa \
+    pipewire-pulse \
+    pipewire-zeroconf \ # audio over network
+    playerctl \ # control media players from terminal / bindkeys
+    polkit-gnome \
     qbittorrent \
-    ristretto \
+    ristretto \ # image viewer
+    sbctl \
+    seahorse \ # frontend for gnome-keyring
+    slurp \ # print-screen: select destop region
+    solaar \ # logitech wireless
     steam \
     sudo \
     sway \
+    swaybg \
+    swayidle \
+    swaylock \
     telegram-desktop \
+    textinfo \
     thunar \
     thunar-volman \
-    textinfo \
     tmux \
+    tpm2-tss \
     tree \
     ttf-dejavu \
     ttf-freefont \
     ttf-liberation \
+    ttf-sourcecodepro-nerd \
+    unzip \
     vim \
     vlc \
     waybar \
     wayland \
+    wireplumber \
+    wl-clipboard \ # print-screen: copy to clipboard
     wofi \
     xwayland \
-    zsh \
+    zip \
+    zsh
     
 #  nvidia nvidia-utils lib32-nvidia-utils
 #  xf86-video-ati mesa lib32-mesa xf86-input-libinput
