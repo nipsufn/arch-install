@@ -13,6 +13,7 @@ exec swayidle -w \
 exec thunar --daemon
 exec 'sleep 5 && env XDG_CURRENT_DESKTOP=Unity telegram-desktop -startintray'
 exec nm-applet --indicator
+exec gammastep-indicator -l 50.292222:18.6675
 
 ### Font
 #font pango:Monospace, 9

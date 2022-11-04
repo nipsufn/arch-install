@@ -23,6 +23,7 @@ pacstrap /mnt \
     evince \ # document / pdf viewer
     exfat-utils \
     firefox \
+    gammastep \ # blue light be gone
     gimp \
     git \
     gnome-keyring \
