@@ -20,14 +20,14 @@ pacstrap /mnt \
     dosfstools \
     e2fsprogs \
     efibootmgr \
-    evince \ # document / pdf viewer
+    evince \
     exfat-utils \
     firefox \
-    gammastep \ # blue light be gone
+    gammastep \
     gimp \
     git \
     gnome-keyring \
-    grim \ # print-screen: dump region to stdout
+    grim \
     gvfs-afc \
     gvfs-gphoto2 \
     gvfs-mtp \
@@ -36,11 +36,11 @@ pacstrap /mnt \
     keepassxc \
     libreoffice-fresh \
     libreoffice-fresh-pl \
-    light \ # control backlight from terminals /bindkeys
+    light \
     linux \
     linux-firmware \
     lvm2 \
-    mako \ # notifications
+    mako \
     man-db \
     man-pages \
     network-manager-applet \
@@ -52,19 +52,19 @@ pacstrap /mnt \
     ntfs-3g \
     openssh \
     p7zip \
-    pavucontrol \ # ui sliders for audio settings
+    pavucontrol \
     pipewire \
     pipewire-alsa \
     pipewire-pulse \
-    pipewire-zeroconf \ # audio over network
-    playerctl \ # control media players from terminal / bindkeys
+    pipewire-zeroconf \
+    playerctl \
     polkit-gnome \
     qbittorrent \
-    ristretto \ # image viewer
+    ristretto \
     sbctl \
-    seahorse \ # frontend for gnome-keyring
-    slurp \ # print-screen: select destop region
-    solaar \ # logitech wireless
+    seahorse \
+    slurp \
+    solaar \
     steam \
     sudo \
     sway \
@@ -88,7 +88,7 @@ pacstrap /mnt \
     waybar \
     wayland \
     wireplumber \
-    wl-clipboard \ # print-screen: copy to clipboard
+    wl-clipboard \
     wofi \
     xwayland \
     zip \
