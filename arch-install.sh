@@ -72,7 +72,7 @@ pacstrap /mnt \
     swayidle \
     swaylock \
     telegram-desktop \
-    textinfo \
+    texinfo \
     thunar \
     thunar-volman \
     tmux \
@@ -90,7 +90,7 @@ pacstrap /mnt \
     wireplumber \
     wl-clipboard \
     wofi \
-    xwayland \
+    xorg-xwayland \
     zip \
     zsh
     
