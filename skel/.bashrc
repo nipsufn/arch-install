@@ -8,7 +8,7 @@
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '
 
-export PATH=/home/nemo/.local/bin:$PATH:./.bin
+export PATH=/home/nemo/.local/bin:$PATH
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
@@ -24,8 +24,5 @@ if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
   export _JAVA_AWT_WM_NONREPARENTING=1
   export MOZ_ENABLE_WAYLAND=1
   export EDITOR=vim
-  eval $(gnome-keyring-daemon --start)
-  export SSH_AUTH_SOCK
   dbus-run-session sway 2>&1 >> ~/.local/var/log/sway.log
-  #dbus-run-session startplasma-wayland
 fi
