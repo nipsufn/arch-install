@@ -17,7 +17,7 @@ LC_TELEPHONE=pl_PL.UTF-8
 LC_TIME=pl_PL.UTF-8
 EOT
 locale-gen
-mkinitcpio -p linux
+#mkinitcpio -p linux
 systemctl enable NetworkManager
 systemctl enable bluetooth
 systemctl enable cups
