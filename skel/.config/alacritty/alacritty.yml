@@ -38,8 +38,8 @@ font:
     y: -2
 
 shell:
-  # program: /bin/bash
-  program: /usr/bin/zsh
+  program: /bin/bash
+  # program: /usr/bin/zsh
 
 font:
   normal:
