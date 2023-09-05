@@ -1,0 +1,19 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+	name = nipsufn
+[core]
+	excludesfile = ~/.gitignore_global
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+[tag]
+	gpgsign = true
+[alias]
+	pare = !echo "Paring branches that are no longer on remote" && git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D
+	force-pull = !git fetch --all && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)
+[push]
+	autoSetupRemote = true
+[url "git@github.com:"]
+	insteadOf = https://github.com/
