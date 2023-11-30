@@ -17,6 +17,7 @@ if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
   export XDG_SESSION_DESKTOP=sway
   export XDG_CURRENT_DESKTOP=Unity
   export XDG_CONFIG_DIR=~/.config
+  export XDG_CONFIG_HOME=~/.config
   export XDG_RUNTIME_DIRS=$XDG_RUNTIME_DIRS:~/.local/share/flatpak/exports/share
   export LIBSEAT_BACKEND=logind
   export QT_QPA_PLATFORM=wayland

@@ -15,5 +15,6 @@
 	force-pull = !git fetch --all && git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)
 [push]
 	autoSetupRemote = true
-[url "git@github.com:"]
+[url "ssh://git@github.com/"]
+	insteadOf = http://github.com/
 	insteadOf = https://github.com/
