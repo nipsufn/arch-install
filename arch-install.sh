@@ -7,8 +7,6 @@ sed -i 's/#\[multilib\]/[multilib]/g' /etc/pacman.conf
 sed -i '/^\[multilib\]$/,+1 s.^#..' /etc/pacman.conf # uncomment next line
 pacstrap /mnt \
     alacritty \
-    alsa-oss \
-    alsa-utils \
     base \
     base-devel \
     blueberry \
@@ -26,7 +24,6 @@ pacstrap /mnt \
     gammastep \
     gimp \
     git \
-    gnome-keyring \
     grim \
     gvfs-afc \
     gvfs-gphoto2 \
@@ -55,13 +52,13 @@ pacstrap /mnt \
     pavucontrol \
     pipewire \
     pipewire-alsa \
+    pipewire-jack \
     pipewire-pulse \
     pipewire-zeroconf \
     playerctl \
     polkit-gnome \
-    qbittorrent \
+    qt5-wayland \
     ristretto \
-    sbctl \
     seahorse \
     slurp \
     solaar \
@@ -75,8 +72,6 @@ pacstrap /mnt \
     texinfo \
     thunar \
     thunar-volman \
-    tmux \
-    tpm2-tss \
     tree \
     ttf-dejavu \
     ttf-freefont \

@@ -34,7 +34,7 @@ sed -i 's/#KernelExperimental = true/KernelExperimental = true/g' /etc/bluetooth
 
 useradd -m $USER
 usermod -aG wheel,users,games,uucp,audio,disk,floppy,input,kvm,optical,scanner,storage,video,network,power $USER
-sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
+#sed -i 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/g' /etc/sudoers
 
 cd /home/$USER
 
