@@ -1,103 +1,107 @@
 #!/usr/bin/env python3
+"""Module printing wireless device battery status"""
 
 import dbus
 import json
-from solaar import cli
-from logitech_receiver import hidpp10 as _hidpp10
-from logitech_receiver import hidpp20 as _hidpp20
-from logitech_receiver import Device as Device
+import sys
 
-battery = [
-    "  ",
-    "  ",
-    "  ",
-    "  ",
-    "  "
+batteryDischarge = [
+    "󰁺  ",
+    "󰁻  ",
+    "󰁼  ",
+    "󰁽  ",
+    "󰁾  ",
+    "󰁿  ",
+    "󰂀  ",
+    "󰂁  ",
+    "󰂂  ",
+    "󰁹  "
 ]
+batteryCharge = [
+    "󰢜  ",
+    "󰂆  ",
+    "󰂇  ",
+    "󰂈  ",
+    "󰢝  ",
+    "󰂉  ",
+    "󰢞  ",
+    "󰂊  ",
+    "󰂋  ",
+    "󰂅  "
+]
+
+icons = {
+    5: "󰍽 ",    # mouse
+    6: " ",     # keyboard
+    12: "󰊴 ",   # gaming input
+    17: "󰋋 ",   # headset
+    19: "󰋋 ",   # headphones
+}
+
+level_to_percent = {3: 10, 4: 5, 6: 50, 7: 75, 8: 100}
 
 excluded_devices = [
     "BAT"
 ]
 
+def battery_glyph(percentage: float, charging: bool) -> str:
+    """Convert percentage to battery glyph"""
+    idx = min(max(int(percentage) // 10, 0), 9)
+    return (batteryCharge if charging else batteryDischarge)[idx]
 
-def logi(dev: Device, text: str, tooltip: str) -> tuple [str, str]:
-    if dev:
-        dev.ping()
-        if dev.kind == 'mouse':
-            logibattery = _hidpp20.get_battery(dev, None)
-            if logibattery is None:
-                logibattery = _hidpp10.get_battery(dev)
-                level, _, _ = logibattery
-            else:
-                try:
-                    level = logibattery[1]
-                except TypeError:
-                    return ""
 
-            #text += " "
-            #if level <= 10:
-            #    text += battery[0]
-            #elif level <= 30:
-            #    text += battery[1]
-            #elif level <= 60:
-            #    text += battery[2]
-            #elif level <= 80:
-            #    text += battery[3]
-            #else:
-            #    text += battery[4]
-            tooltip += dev.codename + " (Solaar): " + str(level) + "%\n"
+def dbus_hid(text: str, tooltip: str) -> tuple[str, str]:
+    """Generate battery status for wireless peripherals via UPower"""
+    bus = dbus.SystemBus()
+    manager = dbus.Interface(
+        bus.get_object("org.freedesktop.UPower", "/org/freedesktop/UPower"),
+        "org.freedesktop.UPower",
+    )
+    for path in manager.EnumerateDevices():
+        try:
+            props = dbus.Interface(
+                bus.get_object("org.freedesktop.UPower", path),
+                "org.freedesktop.DBus.Properties",
+            )
+            status = props.GetAll("org.freedesktop.UPower.Device")
+
+            # skip laptop battery, line power, absent devices
+            if status["PowerSupply"] or not status["IsPresent"]:
+                continue
+            if status["Model"] == "" or status["Model"] in excluded_devices:
+                continue
+
+            percentage = float(status["Percentage"])
+            level = int(status.get("BatteryLevel", 1))
+            if percentage == 0 and level in level_to_percent:
+                percentage = level_to_percent[level]
+
+            charging = int(status["State"]) in (1, 4)
+            text += icons.get(int(status["Type"]), "? ")
+            text += battery_glyph(percentage, charging)
+            tooltip += f"{status['Model']}: {percentage:.0f}%\n"
+        except dbus.DBusException:
+            continue
     return text, tooltip
 
 def main():
-    #for bluetooth
-    #TODO: check if experimental is uncommented in /etc/bluetooth/main.conf 
-    bus = dbus.SystemBus()
-    proxy_object = bus.get_object("org.freedesktop.UPower","/org/freedesktop/UPower")
-    manager = dbus.Interface(proxy_object, "org.freedesktop.UPower")
-    paths = manager.EnumerateDevices()
+    """main"""
+
     json_out = {}
     json_out['text'] = ""
     json_out['tooltip'] = ""
-    for path in paths:
 
-        battery_proxy = bus.get_object("org.freedesktop.UPower", path)
-        battery_proxy_interface = dbus.Interface(battery_proxy, "org.freedesktop.DBus.Properties")
-        status = battery_proxy_interface.GetAll("org.freedesktop.UPower" + ".Device")
+    json_out["text"], json_out["tooltip"] \
+        = dbus_hid(json_out["text"], json_out["tooltip"])
 
-        if status['Model'] != '' and status['Model'] not in excluded_devices:
-            # https://upower.freedesktop.org/docs/Device.html#Device:Type
-            # https://www.nerdfonts.com/cheat-sheet
-            dbus_icon = status['Type']
-            if dbus_icon == 5:
-                json_out['text'] += "󰍽 "
-            elif dbus_icon == 6:
-                json_out['text'] += " "
-            elif dbus_icon == 17:
-                json_out['text'] += "󰋋 "
-            else:
-                json_out['text'] += "? "
-            
-            dbus_battery = status['Percentage']
-            if dbus_battery <= 10:
-                json_out['text'] += battery[0]
-            elif dbus_battery <= 30:
-                json_out['text'] += battery[1]
-            elif dbus_battery <= 60:
-                json_out['text'] += battery[2]
-            elif dbus_battery <= 80:
-                json_out['text'] += battery[3]
-            else:
-                json_out['text'] += battery[4]
-            json_out['tooltip'] += f"{status['Model']}: {status['Percentage']}%\n"
-
-    #logitech mouse
-    recv = list(cli._receivers())
-    recv += list(cli._receivers_and_devices())
-    dev = next(cli._find_device(recv, "1"), None)
-    json_out["text"], json_out["tooltip"] = logi(dev, json_out["text"], json_out["tooltip"])
     json_out['text'] = json_out['text'].strip() + " "
     json_out['tooltip'] = json_out['tooltip'].strip()
     print(json.dumps(json_out))
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    # pylint: disable-next=broad-exception-caught
+    except Exception as e:  # pylint: disable=broad-exception-caught
+        print(f"hid battery script failed: {e}", file=sys.stderr)
+        print('{"text": " ", "tooltip": "HID device battery script fails!"}')

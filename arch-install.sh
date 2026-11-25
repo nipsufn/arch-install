@@ -10,6 +10,7 @@ pacstrap /mnt \
     base \
     base-devel \
     blueberry \
+    breeze \
     bluez-utils \
     cmatrix \
     cpupower \
@@ -57,7 +58,9 @@ pacstrap /mnt \
     pipewire-zeroconf \
     playerctl \
     polkit-gnome \
+    qt5ct \
     qt5-wayland \
+    qt6ct \
     ristretto \
     seahorse \
     slurp \
@@ -73,6 +76,7 @@ pacstrap /mnt \
     thunar \
     thunar-volman \
     tree \
+    ttc-iosevka \
     ttf-dejavu \
     ttf-freefont \
     ttf-liberation \

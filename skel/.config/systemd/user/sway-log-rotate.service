@@ -1,0 +1,6 @@
+[Unit]
+Description=Rotate the Sway log when it grows large
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/rotate-sway-log

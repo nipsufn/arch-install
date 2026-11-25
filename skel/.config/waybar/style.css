@@ -1,6 +1,6 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-family: Roboto, Helvetica, Arial, Noto Color Emoji, sans-serif;
     font-size: 13px;
 }
 
@@ -10,6 +10,7 @@ window#waybar {
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
+    font-size: 13px;
 }
 
 window#waybar.hidden {

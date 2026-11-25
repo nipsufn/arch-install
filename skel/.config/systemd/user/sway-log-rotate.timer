@@ -1,0 +1,10 @@
+[Unit]
+Description=Check the Sway log size hourly
+
+[Timer]
+OnStartupSec=10min
+OnUnitActiveSec=1h
+Unit=sway-log-rotate.service
+
+[Install]
+WantedBy=default.target

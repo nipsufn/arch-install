@@ -1,0 +1,29 @@
+#!/bin/sh
+set -eu
+
+log="$HOME/.local/var/log/sway.log"
+state_dir="$HOME/.local/state"
+lock_file="$state_dir/sway-log-rotate.lock"
+max_bytes=$((25 * 1024 * 1024))
+keep=7
+
+[ -f "$log" ] || exit 0
+mkdir -p "$state_dir"
+exec 9>"$lock_file"
+flock -n 9 || exit 0
+
+size=$(wc -c < "$log")
+[ "$size" -ge "$max_bytes" ] || exit 0
+
+rm -f "$log.$keep.gz"
+n=$((keep - 1))
+while [ "$n" -ge 1 ]; do
+    [ -f "$log.$n.gz" ] && mv -f "$log.$n.gz" "$log.$((n + 1)).gz"
+    n=$((n - 1))
+done
+
+tmp="$log.1.gz.tmp"
+trap 'rm -f "$tmp"' EXIT HUP INT TERM
+gzip -c -- "$log" > "$tmp"
+mv -f "$tmp" "$log.1.gz"
+: > "$log"
