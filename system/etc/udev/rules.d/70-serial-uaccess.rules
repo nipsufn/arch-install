@@ -1,0 +1,3 @@
+# USB serial adapters and boards (ttyUSB*, ttyACM*) for the user at the seat.
+# Must sort before 73-seat-late.rules, which applies uaccess.
+SUBSYSTEM=="tty", KERNEL=="ttyUSB[0-9]*|ttyACM[0-9]*", TAG+="uaccess"

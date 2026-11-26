@@ -1,0 +1,12 @@
+// Mount and unlock internal drives that are not in fstab without an admin
+// password, for an administrator at the machine. Removable drives need no rule.
+polkit.addRule(function (action, subject) {
+  var actions = [
+    "org.freedesktop.udisks2.filesystem-mount-system",
+    "org.freedesktop.udisks2.encrypted-unlock-system"
+  ];
+  if (actions.indexOf(action.id) >= 0 &&
+      subject.isInGroup("wheel") && subject.local && subject.active) {
+    return polkit.Result.YES;
+  }
+});

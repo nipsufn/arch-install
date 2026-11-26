@@ -1,26 +1,28 @@
 #!/bin/bash
+set -euo pipefail
 
 timedatectl set-ntp true
 sed -i 's/#Color/Color/g' /etc/pacman.conf
-sed -i 's/#ParallelDownloads = 5/ParallelDownloads = 5/g' /etc/pacman.conf
 sed -i 's/#\[multilib\]/[multilib]/g' /etc/pacman.conf
 sed -i '/^\[multilib\]$/,+1 s.^#..' /etc/pacman.conf # uncomment next line
 pacstrap /mnt \
+    7zip \
     alacritty \
     base \
     base-devel \
-    blueberry \
+    bash-completion \
+    blueman \
     breeze \
+    brightnessctl \
     bluez-utils \
     cmatrix \
-    cpupower \
     cryptsetup \
     cups \
     dosfstools \
     e2fsprogs \
     efibootmgr \
     evince \
-    exfat-utils \
+    exfatprogs \
     firefox \
     gammastep \
     gimp \
@@ -30,13 +32,16 @@ pacstrap /mnt \
     gvfs-gphoto2 \
     gvfs-mtp \
     gvfs-smb \
+    intel-media-driver \
     intel-ucode \
+    kate \
     keepassxc \
+    konsole \
+    lib32-vulkan-intel \
     libreoffice-fresh \
     libreoffice-fresh-pl \
-    light \
-    linux \
     linux-firmware \
+    linux-zen \
     lvm2 \
     mako \
     man-db \
@@ -46,10 +51,9 @@ pacstrap /mnt \
     noto-fonts \
     noto-fonts-cjk \
     noto-fonts-emoji \
-    noto-fonts-extra \
     ntfs-3g \
     openssh \
-    p7zip \
+    pacman-contrib \
     pavucontrol \
     pipewire \
     pipewire-alsa \
@@ -58,37 +62,40 @@ pacstrap /mnt \
     pipewire-zeroconf \
     playerctl \
     polkit-gnome \
-    qt5ct \
-    qt5-wayland \
+    python-dbus \
+    qbittorrent \
     qt6ct \
     ristretto \
-    seahorse \
     slurp \
     solaar \
     steam \
+    stow \
     sudo \
     sway \
     swaybg \
     swayidle \
     swaylock \
+    syncthing \
     telegram-desktop \
     texinfo \
     thunar \
     thunar-volman \
+    tmux \
     tree \
-    ttc-iosevka \
     ttf-dejavu \
-    ttf-freefont \
+    ttf-firacode-nerd \
     ttf-liberation \
-    ttf-sourcecodepro-nerd \
     unzip \
     vim \
     vlc \
+    vulkan-intel \
     waybar \
     wayland \
     wireplumber \
     wl-clipboard \
     wofi \
+    xdg-desktop-portal-gtk \
+    xdg-desktop-portal-wlr \
     xorg-xwayland \
     zip \
     zsh

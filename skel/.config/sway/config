@@ -5,15 +5,21 @@
 # Read `man 5 sway` for a complete reference.
 
 ### Autostart
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+# Services started on demand over D-Bus (portals, notifications) run as systemd
+# user units, so they see systemd's environment rather than Sway's. Copy all of
+# it, including WAYLAND_DISPLAY and the theme variables set in ~/.bashrc. This
+# comes first so it runs before anything that can start such a service.
+exec dbus-update-activation-environment --systemd --all
 exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #exec asusctltray
-exec mako --config ~/.config/mako/config 2>&1 > ~/.local/var/log/mako.log
+exec mako --config ~/.config/mako/config > ~/.local/var/log/mako.log 2>&1
 exec swayidle -w \
-	timeout 300 'swaylock -f -i /home/nemo/Pictures/ISS_Moon_Transit.jpg'
+	timeout 300 'swaylock -f -i ~/Pictures/ISS_Moon_Transit.jpg' \
+	before-sleep 'swaylock -f -i ~/Pictures/ISS_Moon_Transit.jpg'
 exec thunar --daemon
 exec 'sleep 5 && env XDG_CURRENT_DESKTOP=Unity telegram-desktop -startintray'
 exec nm-applet --indicator
+exec blueman-applet
 exec gammastep-indicator -l 50.292222:18.6675
 
 ### Font
@@ -40,7 +46,7 @@ set $menu wofi -G -i --show="drun,run" | xargs -r swaymsg exec --
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-set $wallpaper /home/nemo/Pictures/ISS_Moon_Transit.jpg
+set $wallpaper ~/Pictures/ISS_Moon_Transit.jpg
 output * bg $wallpaper fill
 #
 # Example configuration:
@@ -146,8 +152,8 @@ workspace 10 output DP-1
     bindsym $mod+Shift+c reload
 
     # change volume on up/down on forward/back mouse buttons
-    bindsym --whole-window button8 exec pactl set-sink-volume $(pactl list short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n1) -10%
-    bindsym --whole-window button9 exec pactl set-sink-volume $(pactl list short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n1) +10%
+    bindsym --whole-window button8 exec pactl set-sink-volume @DEFAULT_SINK@ -10%
+    bindsym --whole-window button9 exec pactl set-sink-volume @DEFAULT_SINK@ +10%
 
     # multimedia keys
     bindsym XF86AudioPlay exec playerctl play-pause
@@ -155,16 +161,16 @@ workspace 10 output DP-1
     bindsym XF86AudioPrev exec playerctl previous
 
     # change volume on dedicated keys
-    bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pactl list short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n1) -10%
-    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pactl list short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n1) +10%
-    bindsym XF86AudioMute exec pactl set-sink-mute $(pactl list short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | head -n1) toggle
-    bindsym XF86AudioMicMute exec pactl set-source-mute $(pactl list short | grep RUNNING | sed -e 's,^\([0-9][0-9]*\)[^0-9].*,\1,' | tail -n1) toggle
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10%
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10%
+    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
     # keyboard brightness
     # bindsym XF86KbdBrightnessUp exec asusctl -n
     # bindsym XF86KbdBrightnessDown exec asusctl -p
     # screen brightness
-    bindsym XF86MonBrightnessUp exec light -A 10
-    bindsym XF86MonBrightnessDown exec light -U 10
+    bindsym XF86MonBrightnessUp exec brightnessctl set 10%+
+    bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
 
     # capture all screens to clipboard
     bindsym $mod+p exec grim - | wl-copy

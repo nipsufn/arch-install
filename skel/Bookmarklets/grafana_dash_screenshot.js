@@ -1,1 +1,0 @@
-javascript:(function() {       var style = document.createElement('style');   document.head.appendChild(style);   var sheet = style.sheet;   sheet.addRule('time-ago:before,relative-time:before', 'content: attr(title);display: block;font-size: 0.5rem;');   })()

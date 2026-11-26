@@ -37,7 +37,9 @@ if [ -z $DISPLAY ] && [ "$(tty)" = "/dev/tty1" ]; then
   export _JAVA_AWT_WM_NONREPARENTING=1
   export MOZ_ENABLE_WAYLAND=1
   export EDITOR=vim
-  exec dbus-run-session sway >> ~/.local/var/log/sway.log 2>&1
+  # Terminals, tmux and editors started from Sway open $SHELL; the TTY login
+  # shell stays bash.
+  export SHELL=/usr/bin/zsh
+  mkdir -p ~/.local/var/log
+  exec sway >> ~/.local/var/log/sway.log 2>&1
 fi
-
-set enable-bracketed-paste on

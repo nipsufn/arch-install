@@ -9,7 +9,7 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode"],
     //"modules-center": ["sway/window"],
-    "modules-right": ["idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "keyboard-state", "sway/language", "custom/bt_batt", "battery", "clock", "tray"],
+    "modules-right": ["idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "sway/language", "custom/bt_batt", "battery", "clock", "tray"],
     // Modules configuration
     // "sway/workspaces": {
     //     "disable-scroll": true,
@@ -26,15 +26,6 @@
     //         "default": ""
     //     }
     // },
-    "keyboard-state": {
-        "numlock": true,
-        "capslock": true,
-        "format": "{name} {icon}",
-        "format-icons": {
-            "locked": "",
-            "unlocked": ""
-        }
-    },
     "sway/mode": {
         "format": "<span style=\"italic\">{}</span>"
     },
@@ -78,8 +69,8 @@
         "device": "intel_backlight",
         "format": "{percent}% {icon}",
         "format-icons": ["", ""],
-        "on-scroll-up": "light -A 2",
-        "on-scroll-down": "light -U 2"
+        "on-scroll-up": "brightnessctl set 2%+",
+        "on-scroll-down": "brightnessctl set 2%-"
     },
     "battery": {
         "bat": "BAT0",

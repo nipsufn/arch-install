@@ -1,0 +1,3 @@
+# Also used by Kate's terminal panel, since katerc sets no profile of its own.
+[Desktop Entry]
+DefaultProfile=FiraCode.profile
